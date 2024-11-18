@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router'; // To navigate after login
 
 @Component({
@@ -10,28 +11,35 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    // Mock response for UI testing
-    const mockResponse = {
-      token: 'mock-token',
-      userResponseDto: {
-        role: this.email === 'admin@example.com' ? 'ADMIN' : 'USER'
-      }
+    const loginData = {
+      email: this.email,
+      password: this.password
     };
 
-    console.log('Login successful:', mockResponse);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    // Store the token and user data in localStorage (or sessionStorage)
-    localStorage.setItem('token', mockResponse.token);
-    localStorage.setItem('user', JSON.stringify(mockResponse.userResponseDto));
+    this.http.post('http://localhost:8080/user/login', loginData, { headers })
+      .subscribe(
+        (response: any) => {
+          console.log('Login successful:', response);
 
-    // Redirect based on user role
-    if (mockResponse.userResponseDto.role === 'ADMIN') {
-      this.router.navigate(['/admindashboard']);
-    } else if (mockResponse.userResponseDto.role === 'USER') {
-      this.router.navigate(['/userdashboard']);
-    }
+          // Store the token and user data in localStorage (or sessionStorage)
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('user', JSON.stringify(response.userResponseDto));
+
+          // Redirect based on user role
+          if (response.userResponseDto.role === 'ADMIN') {
+            this.router.navigate(['/admindashboard']);
+          } else if (response.userResponseDto.role === 'USER') {
+            this.router.navigate(['/userdashboard']);
+          }
+        },
+        (error) => {
+          console.error('Login failed:', error);
+        }
+      );
   }
 }

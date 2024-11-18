@@ -1,60 +1,66 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './userdashboard.component.html',
   styleUrls: ['./userdashboard.component.css']
 })
-export class UserDashboardComponent {
-  registerForm: any;
-  
+export class UserDashboardComponent implements OnInit {
+  user: any;
+  token: any;
   searchForm: FormGroup;
-  trains: Array<any> = [];
-  
-  constructor(private fb: FormBuilder) {
-    // Initialize the search form with default values
+  trains: Array<any> = []; // Dynamically fetched trains
+  apiBaseUrl: string = 'http://localhost:8080/trains'; // Base URL for API
+
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     this.searchForm = this.fb.group({
       source: [''],
       destination: [''],
       date: ['']
     });
-    
-    // Dummy train data
-    this.trains = [
-      { id: 1, name: 'Express 101', type: 'AC', seats: 20, price: 100 },
-      { id: 2, name: 'Superfast 202', type: 'Sleeper', seats: 50, price: 50 },
-      { id: 3, name: 'Cityline 303', type: 'General', seats: 100, price: 30 },
-    ];
   }
 
-  // Method to handle train search - This can be expanded to filter trains based on search input
-  onSearch() {
-    const source = this.searchForm.value.source;
-    const destination = this.searchForm.value.destination;
-    const date = this.searchForm.value.date;
-
-    // For now, logging the search criteria
-    console.log('Searching for trains from', source, 'to', destination, 'on', date);
-
-    // Add logic here to filter the `trains` array based on search criteria if necessary
-    // For now, we display all trains as dummy data
-  }
-
-  // Method for handling profile actions
-  onProfileAction(action: string) {
-    if (action === 'disable') {
-      console.log('Account disabled.');
-      // Add logic to disable account
-    } else if (action === 'delete') {
-      console.log('Account deleted.');
-      // Add logic to delete account
+  ngOnInit() {
+    const storedUser = localStorage.getItem('user');
+    const storedToken = localStorage.getItem('token');
+    if (storedUser && storedToken) {
+      this.user = JSON.parse(storedUser);
+      this.token = 'Bearer ' + storedToken;
     }
   }
 
-  // Method to book a ticket
-  onBookTicket(trainId: number) {
-    console.log(`Booking ticket for train ID: ${trainId}`);
-    // Add logic for booking ticket here
+  onSearch() {
+    const { source, destination } = this.searchForm.value;
+
+    if (!source || !destination) {
+      console.error('Source and destination are required!');
+      return;
+    }
+
+    // API call to fetch trains based on source and destination
+    const url = `${this.apiBaseUrl}/searchtrain?source=${source}&destination=${destination}`;
+    this.http.get<any[]>(url).subscribe({
+      next: (response) => {
+        console.log('Trains fetched from API:', response);
+        this.trains = response.length ? response : [];
+      },
+      error: (error) => {
+        console.error('Error fetching trains:', error);
+      }
+    });
+  }
+
+  onBookTicket(trainId: number, seatType: string) {
+    console.log(`Booking ticket for Train ID: ${trainId}, Seat Type: ${seatType}`);
+    // Logic for booking tickets can be added here
+  }
+  onProfileAction(action: string) {
+    if (action === 'disable') {
+      // Logic for disabling the account
+    } else if (action === 'delete') {
+      // Logic for deleting the account
+    }
   }
 }
