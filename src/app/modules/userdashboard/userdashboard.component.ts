@@ -13,7 +13,6 @@ export class UserDashboardComponent implements OnInit {
   hasSearched = false;
   searchForm: FormGroup;
   minDate: string = ''; 
-  selectedTrainId: number =0; 
   trains: Array<any> = []; // Dynamically fetched trains
   apiBaseUrl: string = 'http://localhost:8080/trains'; // Base URL for API
 
@@ -60,10 +59,12 @@ export class UserDashboardComponent implements OnInit {
     });
   }
 
-  onBookTicket(trainId: number) {
+  onBookTicket(trainId: number, trainName: string) {
     console.log(`Booking ticket for Train ID: ${trainId}`);
-    this.selectedTrainId = trainId;
+    console.log(`Booking ticket for Train Name: ${trainName}`);
+
     localStorage.setItem('trainId',trainId.toString());
+    localStorage.setItem('trainName', trainName);
   }
 
   onProfileAction(action: string) {

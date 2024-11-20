@@ -5,6 +5,7 @@ import { UserDashboardComponent } from './modules/userdashboard/userdashboard.co
 import { AdminDashboardComponent } from './modules/admindashboard/admindashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { BookingComponent } from './modules/booking/booking.component';
+import { UserBookingsComponent } from './modules/user-bookings/user-bookings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },  
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'admindashboard', component: AdminDashboardComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'booking', component: BookingComponent },
+  { path: 'user-bookings', component: UserBookingsComponent },
 ];
 
 @NgModule({
