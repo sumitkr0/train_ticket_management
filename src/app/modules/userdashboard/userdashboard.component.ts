@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import Validators
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -10,15 +10,19 @@ import { HttpClient } from '@angular/common/http';
 export class UserDashboardComponent implements OnInit {
   user: any;
   token: any;
+  hasSearched = false;
   searchForm: FormGroup;
+  minDate: string = ''; 
+  selectedTrainId: number =0; 
   trains: Array<any> = []; // Dynamically fetched trains
   apiBaseUrl: string = 'http://localhost:8080/trains'; // Base URL for API
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
+    // Initialize form with Validators
     this.searchForm = this.fb.group({
-      source: [''],
-      destination: [''],
-      date: ['']
+      source: ['', Validators.required], // Source is required
+      destination: ['', Validators.required], // Destination is required
+      date: ['', Validators.required] // Date is required
     });
   }
 
@@ -29,18 +33,22 @@ export class UserDashboardComponent implements OnInit {
       this.user = JSON.parse(storedUser);
       this.token = 'Bearer ' + storedToken;
     }
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]; 
   }
 
   onSearch() {
-    const { source, destination } = this.searchForm.value;
-
-    if (!source || !destination) {
-      console.error('Source and destination are required!');
+    if (this.searchForm.invalid) {
+      console.error('All fields are required!');
       return;
     }
 
-    // API call to fetch trains based on source and destination
-    const url = `${this.apiBaseUrl}/searchtrain?source=${source}&destination=${destination}`;
+    const { source, destination, date } = this.searchForm.value;
+    this.hasSearched = true;
+   
+
+    // API call to fetch trains based on source, destination, and date
+    const url = `${this.apiBaseUrl}/searchtrain?source=${source}&destination=${destination}&date=${date}`;
     this.http.get<any[]>(url).subscribe({
       next: (response) => {
         console.log('Trains fetched from API:', response);
@@ -52,10 +60,12 @@ export class UserDashboardComponent implements OnInit {
     });
   }
 
-  onBookTicket(trainId: number, seatType: string) {
-    console.log(`Booking ticket for Train ID: ${trainId}, Seat Type: ${seatType}`);
-    // Logic for booking tickets can be added here
+  onBookTicket(trainId: number) {
+    console.log(`Booking ticket for Train ID: ${trainId}`);
+    this.selectedTrainId = trainId;
+    localStorage.setItem('trainId',trainId.toString());
   }
+
   onProfileAction(action: string) {
     if (action === 'disable') {
       // Logic for disabling the account

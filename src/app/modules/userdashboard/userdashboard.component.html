@@ -58,30 +58,70 @@
       </div>
     </div>
 
-    <!-- Search Train Section -->
+    
+
     <div class="search-section my-4 p-4 rounded shadow-sm">
       <h3 class="section-title">Search for a Train</h3>
       <form [formGroup]="searchForm" class="row g-3">
+        <!-- Source Field -->
         <div class="col-md-4">
           <label for="source" class="form-label">Source</label>
-          <input type="text" class="form-control" formControlName="source" placeholder="Enter source location">
+          <input 
+            type="text" 
+            class="form-control" 
+            id="source" 
+            formControlName="source" 
+            placeholder="Enter source location">
+          <!-- Validation Message -->
+          <div class="text-danger" *ngIf="searchForm.get('source')?.touched && searchForm.get('source')?.invalid">
+            Source is required.
+          </div>
         </div>
+    
+        <!-- Destination Field -->
         <div class="col-md-4">
           <label for="destination" class="form-label">Destination</label>
-          <input type="text" class="form-control" formControlName="destination"
+          <input 
+            type="text" 
+            class="form-control" 
+            id="destination" 
+            formControlName="destination" 
             placeholder="Enter destination location">
+          <!-- Validation Message -->
+          <div class="text-danger" *ngIf="searchForm.get('destination')?.touched && searchForm.get('destination')?.invalid">
+            Destination is required.
+          </div>
         </div>
+    
+        <!-- Date Field -->
         <div class="col-md-4">
           <label for="date" class="form-label">Date</label>
-          <input type="date" class="form-control" formControlName="date">
+          <input 
+            type="date" 
+            class="form-control" 
+            id="date" 
+            formControlName="date"
+            [min]="minDate"/>
+          <!-- Validation Message -->
+          <div class="text-danger" *ngIf="searchForm.get('date')?.touched && searchForm.get('date')?.invalid">
+            Date is required.
+          </div>
         </div>
+    
+        <!-- Submit Button -->
         <div class="col-12">
-          <button type="button" class="btn btn-primary mt-3" (click)="onSearch()">Search</button>
+          <button 
+            type="button" 
+            class="btn btn-primary mt-3" 
+            [disabled]="searchForm.invalid" 
+            (click)="onSearch()">
+            Search
+          </button>
         </div>
       </form>
     </div>
+    
 
-    <!-- Available Trains Table -->
     <div class="table-section mt-5 p-3 rounded shadow-sm" *ngIf="trains.length > 0">
       <h4 class="section-title">Available Trains</h4>
       <table class="table table-bordered table-hover">
@@ -97,49 +137,49 @@
         </thead>
         <tbody>
           <tr *ngFor="let train of trains; let i = index">
-            <td [attr.rowspan]="3">{{ i + 1 }}</td>
-            <td [attr.rowspan]="3">{{ train.name }}</td>
+            <td>{{ i + 1 }}</td>
+            <td>{{ train.name }}</td>
             <td>
-              <table class="table">
-                <tr><td>AC</td></tr>
-                <tr><td>Sleeper</td></tr>
-                <tr><td>General</td></tr>
-              </table>
+              <ul class="list-unstyled">
+                <li>AC</li>
+                <li>Sleeper</li>
+                <li>General</li>
+              </ul>
             </td>
             <td>
-              <table class="table">
-                <tr><td>{{ train.ac }}</td></tr>
-                <tr><td>{{ train.sleeper }}</td></tr>
-                <tr><td>{{ train.general }}</td></tr>
-              </table>
+              <ul class="list-unstyled">
+                <li>{{ train.ac }}</li>
+                <li>{{ train.sleeper }}</li>
+                <li>{{ train.general }}</li>
+              </ul>
             </td>
             <td>
-              <table class="table">
-                <tr><td>Rs. {{ train.acPrice }}</td></tr>
-                <tr><td>Rs. {{ train.sleeperPrice }}</td></tr>
-                <tr><td>Rs. {{ train.generalPrice }}</td></tr>
-              </table>
+              <ul class="list-unstyled">
+                <li>Rs. {{ train.acPrice }}</li>
+                <li>Rs. {{ train.sleeperPrice }}</li>
+                <li>Rs. {{ train.generalPrice }}</li>
+              </ul>
             </td>
             <td>
-              <button class="btn btn-book mt-3" (click)="onBookTicket(train.id, 'General')">Book Ticket</button>
+              <ul class="list-unstyled">
+                <li><button class="btn btn-book mb-2" (click)="onBookTicket(train.id)" routerLink="/booking">Book Ticket</button></li>
+              </ul>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-
-    <!-- No Trains Found -->
-    <div *ngIf="trains.length === 0" class="text-center mt-4">
+    
+    <div *ngIf="trains.length === 0 && hasSearched" class="text-center mt-4">
       <p class="no-trains">No trains available. Please search with different criteria.</p>
     </div>
+    
 
-    <!-- Back to Login Button -->
     <div class="text-center mt-5 mb-5">
       <a routerLink="/login" class="btn btn-secondary">Back to Login</a>
     </div>
   </div>
 
-  <!-- Bootstrap Bundle with Popper (JavaScript) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
   <!-- Initialize Tooltip -->

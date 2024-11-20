@@ -30,6 +30,7 @@ export class LoginComponent {
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.userResponseDto));
 
+          console.log(localStorage.getItem('token'));
           // Redirect based on user role
           if (response.userResponseDto.role === 'ADMIN') {
             this.router.navigate(['/admindashboard']);
