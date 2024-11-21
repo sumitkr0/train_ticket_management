@@ -6,6 +6,7 @@ import { AdminDashboardComponent } from './modules/admindashboard/admindashboard
 import { RegisterComponent } from './register/register.component';
 import { BookingComponent } from './modules/booking/booking.component';
 import { AddtrainComponent } from './modules/addtrain/addtrain.component';
+import { UserBookingsComponent } from './modules/user-bookings/user-bookings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'booking', component: BookingComponent },
   { path: 'addtrain', component: AddtrainComponent },
+  { path: 'user-bookings', component: UserBookingsComponent },
 ];
 
 @NgModule({

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking',
@@ -9,6 +10,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent implements OnInit {
+
+  trainName: any;
+  selectedDate: any;
   bookingForm: FormGroup = this.fb.group({
     trainId: [parseInt(localStorage.getItem('trainId') || '0')],
     journeyDate: ['', Validators.required],
@@ -17,9 +21,17 @@ export class BookingComponent implements OnInit {
   });
   minDate: string = new Date().toISOString().split('T')[0];
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.selectedDate = localStorage.getItem('selectedDate') || '';
+
+    if (this.selectedDate) {
+      this.bookingForm.patchValue({ journeyDate: this.selectedDate });
+      this.bookingForm.get('journeyDate')?.disable();
+    }
+    this.trainName = localStorage.getItem('trainName');
+  }
 
   // Method to create a new passenger FormGroup
   createPassenger(): FormGroup {
@@ -51,37 +63,36 @@ export class BookingComponent implements OnInit {
   onSubmit(): void {
     if (this.bookingForm.valid) {
       const bookingData = this.bookingForm.value;
-      console.log('Form Submitted:', bookingData);
 
       // API call to book the ticket
-      this.bookTicket(bookingData).subscribe(
-        (response) => {
-          console.log('Ticket booked successfully:', response);
-          // Handle success (e.g., navigate to another page)
+      this.bookTicket(bookingData).subscribe({
+        next: (response: HttpResponse<any>) => {
+          if (response.status === 201) { // Check if status is 201
+            alert('Booking successful!');
+            this.router.navigate(['/user-bookings']); // Navigate to the bookings page
+          } else {
+            console.log('Unexpected status code:', response.status);
+          }
         },
-        (error) => {
-          console.error('Error booking ticket:', error);
-          // Handle error (e.g., show error message)
+        error: (err) => {
+          console.error('Error booking ticket:', err);
+          alert('Failed to book ticket. Please try again.');
         }
-      );
+      });
     } else {
       console.log('Form is invalid');
     }
   }
 
   // Method to call the API
-  bookTicket(bookingData: any): Observable<any> {
-    const token=localStorage.getItem('token');
-    console.log(bookingData);
-    console.log(token);
+  bookTicket(bookingData: any): Observable<HttpResponse<any>> {
+    const token = localStorage.getItem('token');
     const url = 'http://localhost:8080/booking/book';
     const headers = new HttpHeaders()
-  .set('Authorization', `Bearer ${token}`)  // Set Authorization header
-  .set('Content-Type', 'application/json');      // Set Content-Type header
+      .set('Authorization', `Bearer ${token}`)
+      .set('Content-Type', 'application/json');
 
-    console.log(headers);
-
-    return this.http.post(url, bookingData, { headers });
+    // Use observe: 'response' to get the full HTTP response
+    return this.http.post<HttpResponse<any>>(url, bookingData, { headers, observe: 'response' });
   }
-  
 }

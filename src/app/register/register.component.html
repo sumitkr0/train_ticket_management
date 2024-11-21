@@ -1,146 +1,99 @@
 <!-- register.component.html -->
-<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center" style="background: url('assets/images/background.jpg') no-repeat center center / cover;">
-    <div class="row w-100 mx-3 mx-md-0">
-      <div class="col-lg-8 mx-auto shadow-lg p-0 rounded-4" style="background-color: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px);">
-        <div class="row g-0">
-          
-          <!-- Left Side (Register Form) -->
-          <div class="col-12 col-md-6 p-5">
-            <h3 class="text-center mb-3 fw-bold">Register</h3>
-            <p class="text-center text-muted mb-4">Already have an account? <a routerLink="/login" class="text-decoration-none text-primary">Login</a></p>
-            <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
-              
-              <!-- Name Field -->
-              <div class="form-floating mb-3">
-                <input 
-                  type="text" 
-                  id="name" 
-                  [(ngModel)]="name" 
-                  name="name" 
-                  class="form-control" 
-                  required 
-                  pattern="^[a-zA-Z]+$" 
-                  placeholder="Name" 
-                />
-                <label for="name">Name</label>
-                <div *ngIf="registerForm.submitted && !registerForm.controls['name']?.valid" class="text-danger small">
-                  Name should only contain alphabets.
-                </div>
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center"
+  style="background: url('assets/images/background.jpg') no-repeat center center / cover;">
+  <div class="row w-100 mx-3 mx-md-0">
+    <div class="col-lg-8 mx-auto shadow-lg p-0 rounded-4"
+      style="background-color: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px);">
+      <div class="row g-0">
+
+        <!-- Left Side (Register Form) -->
+        <div class="col-12 col-md-6 p-5">
+          <h3 class="text-center mb-0 fw-bold">Register</h3>
+          <p class="text-center text-muted mb-1">Already have an account? <a routerLink="/login"
+              class="text-decoration-none text-primary">Login</a></p>
+          <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+
+            <!-- Name Field -->
+            <div class="form-floating mb-3">
+              <input type="text" id="name" [(ngModel)]="name" name="name" class="form-control" required
+                pattern="^[a-zA-Z]+$" placeholder="Name" />
+              <label for="name">Name</label>
+              <div *ngIf="registerForm.submitted && !registerForm.controls['name']?.valid" class="text-danger small">
+                Name should only contain alphabets.
               </div>
-              
-              <!-- Email Field -->
-              <div class="form-floating mb-3">
-                <input 
-                  type="email" 
-                  id="email" 
-                  [(ngModel)]="email" 
-                  name="email" 
-                  class="form-control" 
-                  required 
-                  email 
-                  placeholder="name@example.com" 
-                />
-                <label for="email">Email</label>
-                <div *ngIf="registerForm.submitted && !registerForm.controls['email']?.valid" class="text-danger small">
-                  Please enter a valid email address.
-                </div>
-              </div>
-              
-              <!-- Contact Number Field -->
-              <div class="form-floating mb-3">
-                <input 
-                  type="text" 
-                  id="contact" 
-                  [(ngModel)]="contact" 
-                  name="contact" 
-                  class="form-control" 
-                  required 
-                  pattern="^[789][0-9]{9}$" 
-                  placeholder="Contact Number" 
-                />
-                <label for="contact">Contact Number</label>
-                <div *ngIf="registerForm.submitted && !registerForm.controls['contact']?.valid" class="text-danger small">
-                  Contact number must start with 7, 8, or 9 and be 10 digits long.
-                </div>
-              </div>
-              
-              <!-- Date of Birth Field -->
-              <div class="form-floating mb-3">
-                <input 
-                  type="date" 
-                  id="dob" 
-                  [(ngModel)]="dob" 
-                  name="dob" 
-                  class="form-control" 
-                  required 
-                  placeholder="Date of Birth" 
-                />
-                <label for="dob">Date of Birth</label>
-              </div>
-              
-              <!-- Address Field -->
-              <div class="form-floating mb-3">
-                <input 
-                  type="text" 
-                  id="address" 
-                  [(ngModel)]="address" 
-                  name="address" 
-                  class="form-control" 
-                  required 
-                  placeholder="Address" 
-                />
-                <label for="address">Address</label>
-              </div>
-              
-              <!-- Password Field -->
-              <div class="form-floating mb-3">
-                <input 
-                  type="password" 
-                  id="password" 
-                  [(ngModel)]="password" 
-                  name="password" 
-                  class="form-control" 
-                  required 
-                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}$" 
-                  placeholder="Password" 
-                />
-                <label for="password">Password</label>
-                <div *ngIf="registerForm.submitted && !registerForm.controls['password']?.valid" class="text-danger small">
-                  Password must be at least 6 characters long, contain one uppercase, one lowercase, and one special character.
-                </div>
-              </div>
-              
-              <!-- Terms and Conditions -->
-              <div class="form-check mb-4">
-                <input 
-                  type="checkbox" 
-                  id="terms" 
-                  [(ngModel)]="terms" 
-                  name="terms" 
-                  class="form-check-input" 
-                  required 
-                />
-                <label for="terms" class="form-check-label">
-                  I agree to the terms and conditions.
-                </label>
-              </div>
-              
-              <!-- Submit Button -->
-              <button type="submit" class="btn btn-dark w-100 btn-lg">Register</button>
-            </form>
-          </div>
-          
-          <!-- Right Side (Welcome Message) -->
-          <div class="col-12 col-md-6 d-flex align-items-center justify-content-center p-5" style="background-color: rgba(234, 179, 123, 0.3); border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-            <div class="text-center text-dark">
-              <h1 class="fw-bold mb-3">Train Booking System</h1>
-              <h3>Join Us Today</h3>
-              <p class="mt-3">Become a part of our community and enjoy the ease of managing all your train bookings in one convenient place.</p>
             </div>
-          </div>
-  
+
+            <!-- Email Field -->
+            <div class="form-floating mb-3">
+              <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control" required email
+                placeholder="name@example.com" />
+              <label for="email">Email</label>
+              <div *ngIf="registerForm.submitted && !registerForm.controls['email']?.valid" class="text-danger small">
+                Please enter a valid email address.
+              </div>
+            </div>
+
+            <!-- Contact Number Field -->
+            <div class="form-floating mb-3">
+              <input type="text" id="contact" [(ngModel)]="contact" name="contact" class="form-control" required
+                pattern="^[789][0-9]{9}$" placeholder="Contact Number" />
+              <label for="contact">Contact Number</label>
+              <div *ngIf="registerForm.submitted && !registerForm.controls['contact']?.valid" class="text-danger small">
+                Contact number must start with 7, 8, or 9 and be 10 digits long.
+              </div>
+            </div>
+
+            <!-- Date of Birth Field -->
+            <div class="form-floating mb-3">
+              <input type="date" id="dob" [(ngModel)]="dob" name="dob" class="form-control" required
+                placeholder="Date of Birth" />
+              <label for="dob">Date of Birth</label>
+            </div>
+
+            <!-- Address Field -->
+            <div class="form-floating mb-3">
+              <input type="text" id="address" [(ngModel)]="address" name="address" class="form-control" required
+                placeholder="Address" />
+              <label for="address">Address</label>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-floating mb-3">
+              <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control" required
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}$" placeholder="Password" />
+              <label for="password">Password</label>
+              <div *ngIf="registerForm.submitted && !registerForm.controls['password']?.valid"
+                class="text-danger small">
+                Password must be at least 6 characters long, contain one uppercase, one lowercase, and one special
+                character.
+              </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="form-check mb-4">
+              <input type="checkbox" id="terms" [(ngModel)]="terms" name="terms" class="form-check-input" required />
+              <label for="terms" class="form-check-label">
+                I agree to the terms and conditions.
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-dark w-100 btn-lg">Register</button>
+          </form>
         </div>
+
+        <!-- Right Side (Welcome Message) -->
+        <div class="col-12 col-md-6 d-flex align-items-center justify-content-center p-5"
+          style="background-color: rgba(234, 179, 123, 0.3); border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
+          <div class="text-center text-dark">
+            <h1 class="fw-bold mb-3">Train Booking System</h1>
+            <h3>Join Us Today</h3>
+            <p class="mt-3">Become a part of our community and enjoy the ease of managing all your train bookings in one
+              convenient place.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
-  
+</div>

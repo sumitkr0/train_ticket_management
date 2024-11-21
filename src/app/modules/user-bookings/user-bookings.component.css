@@ -1,0 +1,55 @@
+/* Booking Detail Card */
+.booking-detail-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%; /* Adjust width based on your preference */
+    max-width: 900px; /* Maximum width to ensure the card doesn't grow too wide */
+    height: 70%; /* Set a fixed height for the card */
+    max-height: 80%; /* Ensures that the card doesn't exceed the page height */
+    z-index: 1050; /* Makes sure the card is above all other elements */
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    overflow-y: auto; /* Allow scrolling if content exceeds the card height */
+  }
+  
+  /* Scrollable passenger list */
+  .passenger-list {
+    max-height: 300px; /* Adjust based on how many passengers you want visible */
+    overflow-y: auto; /* Enables scrolling */
+    margin-top: 20px;
+  }
+  
+  /* Close button (X) */
+  .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+  }
+  .card-title1{
+    text-decoration: underline;
+  }
+  
+  .btn-close:hover {
+    color: red;
+  }
+  
+  /* Blurring background cards when a booking detail card is shown */
+  .blurred .card {
+    filter: blur(5px); /* Apply blur effect to background cards */
+    pointer-events: none; /* Disable interaction with blurred cards */
+  }
+  
+  .blurred {
+    position: relative;
+    z-index: 1049; /* Ensures the blur effect is applied to the background */
+  }
+  
