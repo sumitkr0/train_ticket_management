@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class BookingComponent implements OnInit {
 
   trainName: any;
+  selectedDate: any;
   bookingForm: FormGroup = this.fb.group({
     trainId: [parseInt(localStorage.getItem('trainId') || '0')],
     journeyDate: ['', Validators.required],
@@ -20,9 +21,15 @@ export class BookingComponent implements OnInit {
   });
   minDate: string = new Date().toISOString().split('T')[0];
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
+    this.selectedDate = localStorage.getItem('selectedDate') || '';
+
+    if (this.selectedDate) {
+      this.bookingForm.patchValue({ journeyDate: this.selectedDate });
+      this.bookingForm.get('journeyDate')?.disable();
+    }
     this.trainName = localStorage.getItem('trainName');
   }
 

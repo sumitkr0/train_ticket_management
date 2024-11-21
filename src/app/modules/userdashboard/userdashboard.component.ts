@@ -43,8 +43,9 @@ export class UserDashboardComponent implements OnInit {
     }
 
     const { source, destination, date } = this.searchForm.value;
+    this.trains = [];
     this.hasSearched = true;
-   
+    localStorage.setItem('selectedDate',date);
 
     // API call to fetch trains based on source, destination, and date
     const url = `${this.apiBaseUrl}/searchtrain?source=${source}&destination=${destination}&date=${date}`;

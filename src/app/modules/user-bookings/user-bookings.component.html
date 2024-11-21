@@ -1,24 +1,70 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">My Bookings</h2>
+  
+    <!-- If no bookings are available -->
     <div *ngIf="bookings.length === 0" class="alert alert-info text-center">
-        No bookings found.
+      No bookings found.
     </div>
-    <div *ngIf="bookings.length > 0" class="row">
-        <div *ngFor="let booking of bookings" class="col-md-3 mb-2">
-            <div class="card shadow-sm">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Train: {{ booking.train.name }}</h5>
-                    <p class="card-text">
-                        <strong>Source: </strong> {{booking.train.source}} <br>
-                        <strong>Destination: </strong> {{ booking.train.destination }} <br />
-                        <strong>Journey Date:</strong> {{ booking.journeyDate }} <br />
-                        <strong>Status:</strong> {{ booking.status }}
-                    </p>
-                    <div class="mt-auto text-end">
-                        <h6 style="color: red; font-size: 14px; margin-bottom: -10px; margin-left: 10px;">Booked on: {{ booking.createdAt | date: 'yyyy-MM-dd' }}</h6> 
-                    </div>
-                </div>
+  
+    <!-- If there are bookings, show them in cards -->
+    <div *ngIf="bookings.length > 0" class="row" [class.blurred]="selectedBooking">
+      <div *ngFor="let booking of bookings" class="col-md-3 mb-2">
+        <div class="card shadow-sm" (click)="fetchBookingDetails(booking.id, booking.train.source, booking.train.destination)" style="cursor: pointer;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Train: {{ booking.train.name }}</h5>
+            <p class="card-text">
+              <strong>Source: </strong> {{ booking.train.source }} <br>
+              <strong>Destination: </strong> {{ booking.train.destination }} <br />
+              <strong>Journey Date:</strong> {{ booking.journeyDate }} <br />
+              <strong>Status:</strong> {{ booking.status }}
+            </p>
+            <div class="mt-auto text-end">
+              <h6 style="color: red; font-size: 14px; margin-bottom: -10px; margin-left: 10px;">Booked on: {{ booking.createdAt | date: 'yyyy-MM-dd' }}</h6>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  
+    <!-- If a booking is selected, show detailed view -->
+    <div *ngIf="selectedBooking" class="booking-detail-card mt-4 shadow-sm">
+      <div class="card-body">
+        <!-- Close button (X) -->
+        <button class="btn btn-close" (click)="closeBookingDetails()"></button>
+  
+        <h4 class="card-title1">Booking Details for Train: {{ selectedBooking.booking.id }}</h4><br>
+        <p><strong>Source:</strong> {{ source }}</p>
+        <p><strong>Destination:</strong> {{ destination }}</p>
+        <p><strong>Journey Date:</strong> {{ selectedBooking.booking.journeyDate | date: 'yyyy-MM-dd' }}</p>
+        <p><strong>Coach:</strong> {{ selectedBooking.booking.coach }}</p>
+        <p><strong>Status:</strong> {{ selectedBooking.booking.status }}</p>
+        <p><strong>Booked on:</strong> {{ selectedBooking.booking.createdAt | date: 'yyyy-MM-dd' }}</p>
+  
+        <h5 class="mt-4">Passengers:</h5>
+        <div class="passenger-list">
+          <div *ngFor="let passenger of selectedBooking.passengers">
+            <div class="card mb-2">
+              <div class="card-body">
+                <p><strong>Name:</strong> {{ passenger.name }}</p>
+                <p><strong>Age:</strong> {{ passenger.age }}</p>
+                <p><strong>Gender:</strong> {{ passenger.gender }}</p>
+                <p><strong>Seat No:</strong> {{ passenger.seatNo }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Cancel Ticket Button - Only enabled when the status is "SUCCESS" -->
+        <div class="text-end">
+          <button *ngIf="selectedBooking.booking.status === 'Success'" class="btn btn-danger" (click)="cancelBooking(selectedBooking.booking.id)">
+            Cancel Ticket
+          </button>
+        </div>
+      </div>
+    </div>
+
+    
+
+  
+  </div>
+  
