@@ -1,0 +1,114 @@
+<div class="container-fluid" style="background-color: #f4f9fd; min-height: 100vh;">
+  <!-- Enhanced Navbar Design -->
+  <nav class="navbar navbar-expand-lg navbar-light"
+    style="background-color: #f8f9fa; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <div class="container">
+      <a class="navbar-brand"  style="color: #2a3d66; font-weight: 600; font-size: 1.7rem;">Admin Dashboard</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <!-- Home Icon from FontAwesome -->
+          <li class="nav-item">
+            <a href="/admindashboard" class="nav-link" style="font-size: 1.5rem; color: #2a3d66;">
+              <i class="fas fa-home"></i> <!-- Home Icon from FontAwesome -->
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-5"
+    style="background-color: white; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 40px;">
+    <h2 class="text-center mb-4" style="color: #2a3d66; font-weight: bold;">Add Train</h2>
+
+    <!-- Train Form -->
+    <form (ngSubmit)="addTrain()" #trainForm="ngForm" class="mb-5">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="name" class="form-label">Train Name</label>
+          <input type="text" id="name" class="form-control" [(ngModel)]="train.name" name="name" required
+            style="background-color: #f8f9fa;" />
+        </div>
+        <div class="col-md-4">
+          <label for="source" class="form-label">Source</label>
+          <input type="text" id="source" class="form-control" [(ngModel)]="train.source" name="source" required
+            style="background-color: #f8f9fa;" />
+        </div>
+        <div class="col-md-4">
+          <label for="destination" class="form-label">Destination</label>
+          <input type="text" id="destination" class="form-control" [(ngModel)]="train.destination" name="destination"
+            required style="background-color: #f8f9fa;" />
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <label for="date" class="form-label">Date</label>
+          <input type="date" id="date" class="form-control" [(ngModel)]="train.date" name="date" required
+            style="background-color: #f8f9fa;" />
+        </div>
+        <div class="col-md-4">
+          <label for="trainId" class="form-label">Train ID</label>
+          <input type="text" id="trainId" class="form-control" [(ngModel)]="train.trainId" name="trainId" required
+            style="background-color: #f8f9fa;" />
+        </div>
+        <div class="col-md-4">
+          <label for="category" class="form-label">Category</label>
+          <select id="category" class="form-control" [(ngModel)]="train.category" name="category" required
+            style="background-color: #f8f9fa;">
+            <option value="General">General</option>
+            <option value="Sleeper">Sleeper</option>
+            <option value="AC">AC</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <label for="seatPrice" class="form-label">Seat Price</label>
+          <input type="text" id="seatPrice" class="form-control" [value]="getSeatPrice()" readonly
+            style="background-color: #f0f0f0;" />
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <button type="submit" class="btn btn-primary px-5 py-2" style="border-radius: 30px; font-weight: bold;">Add
+          Train</button>
+      </div>
+    </form>
+
+    <!-- Train Data Table -->
+    <h4 class="text-center mb-4" style="color: #2a3d66; font-weight: bold;">Train Data</h4>
+    <table class="table table-striped table-bordered table-hover"
+      style="background-color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <thead style="background-color: #e6f0f9;">
+        <tr>
+          <th>Train ID</th>
+          <th>Name</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>General Seats</th>
+          <th>Sleeper Seats</th>
+          <th>AC Seats</th>
+          <th>Seat Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let train of trainData">
+          <td>{{ train.trainId }}</td>
+          <td>{{ train.name }}</td>
+          <td>{{ train.source }}</td>
+          <td>{{ train.destination }}</td>
+          <td>{{ train.generalSeats }}</td>
+          <td>{{ train.sleeperSeats }}</td>
+          <td>{{ train.acSeats }}</td>
+          <td>{{ train.seatPrice }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
