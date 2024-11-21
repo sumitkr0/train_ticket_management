@@ -63,6 +63,10 @@ export class BookingComponent implements OnInit {
   onSubmit(): void {
     if (this.bookingForm.valid) {
       const bookingData = this.bookingForm.value;
+      if (this.selectedDate) {
+        bookingData.journeyDate = this.selectedDate;
+      }
+      console.log(bookingData);
 
       // API call to book the ticket
       this.bookTicket(bookingData).subscribe({

@@ -10,6 +10,7 @@ import { AdminDashboardComponent } from './modules/admindashboard/admindashboard
 import { RegisterComponent } from './register/register.component';
 import { BookingComponent } from './modules/booking/booking.component';
 import { UserBookingsComponent } from './modules/user-bookings/user-bookings.component';
+import { NavbarComponent } from './modules/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UserBookingsComponent } from './modules/user-bookings/user-bookings.com
     AdminDashboardComponent,
     RegisterComponent,
     BookingComponent,
-    UserBookingsComponent   // Declare LoginComponent here
+    UserBookingsComponent,
+    NavbarComponent   // Declare LoginComponent here
   ],
   imports: [
     BrowserModule,

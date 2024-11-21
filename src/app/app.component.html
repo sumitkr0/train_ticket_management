@@ -1,2 +1,3 @@
 <!-- app.component.html -->
+<app-navbar *ngIf="!isLoginOrRegister()"></app-navbar> <!-- Navbar -->
 <router-outlet></router-outlet>  <!-- Render the routed component here -->
