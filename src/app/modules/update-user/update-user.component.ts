@@ -64,7 +64,16 @@ export class UpdateUserComponent implements OnInit {
           (response) => {
             alert('Profile updated successfully!');
             localStorage.setItem('user',JSON.stringify(response));
+            
+            const user: any = JSON.parse(localStorage.getItem('user') || '{}');
+            const userRole: string = user.role;
+
+          // Navigate based on role
+          if (userRole === 'ADMIN') {
+            this.router.navigate(['/admindashboard']);
+          } else {
             this.router.navigate(['/userdashboard']);
+          }
           },
           (error) => {
             console.error('Error updating profile', error);

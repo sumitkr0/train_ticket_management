@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import Validators
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -16,7 +17,7 @@ export class UserDashboardComponent implements OnInit {
   trains: Array<any> = []; // Dynamically fetched trains
   apiBaseUrl: string = 'http://localhost:8080/trains'; // Base URL for API
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient,private router:Router) {
     this.searchForm = this.fb.group({
       source: ['', Validators.required], // Source is required
       destination: ['', Validators.required], // Destination is required
@@ -25,6 +26,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    const token = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
     const storedToken = localStorage.getItem('token');
     if (storedUser && storedToken) {

@@ -1,0 +1,37 @@
+/* admin-dashboard.component.css */
+
+/* Background styling */
+.container-fluid {
+    background: linear-gradient(to right, #4a90e2, #9013fe);
+    color: white;
+  }
+  
+  /* Navbar customization */
+  .navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Text animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .animate__animated.animate__fadeInDown {
+    animation: fadeIn 1.5s ease-in-out;
+    height: 80vh !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Button hover effect */
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+  

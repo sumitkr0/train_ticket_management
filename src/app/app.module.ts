@@ -13,6 +13,9 @@ import { UserBookingsComponent } from './modules/user-bookings/user-bookings.com
 import { NavbarComponent } from './modules/navbar/navbar.component';
 import { FaqComponent } from './modules/faq/faq.component';
 import { UpdateUserComponent } from './modules/update-user/update-user.component';
+import { UserdetailsComponent } from './modules/userdetails/userdetails.component';
+import { EdittrainComponent } from './modules/edittrain/edittrain.component';
+import { AddtrainComponent } from './modules/addtrain/addtrain.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,11 @@ import { UpdateUserComponent } from './modules/update-user/update-user.component
     UserBookingsComponent,
     NavbarComponent,
     FaqComponent,
-    UpdateUserComponent   // Declare LoginComponent here
+    UpdateUserComponent,
+    AddtrainComponent,
+    EdittrainComponent,
+    UserdetailsComponent,
+    EdittrainComponent   // Declare LoginComponent here
   ],
   imports: [
     BrowserModule,

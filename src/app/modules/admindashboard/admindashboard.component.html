@@ -1,13 +1,17 @@
 <!-- admin-dashboard.component.html -->
-<div class="container">
-    <h2>Welcome, {{ user?.name }} (Admin Dashboard)</h2>
+<div class="container-fluid bg-dark text-white min-vh-100">
+  <!-- Navbar -->
   
-    <div>
-      <p><strong>Email:</strong> {{ user?.email }}</p>
-      <p><strong>Role:</strong> {{ user?.role }}</p>
-    </div>
-  
-    <!-- Button to logout -->
-    <button (click)="logout()" class="btn btn-danger">Logout</button>
+
+  <!-- Welcome Section -->
+  <div class="text-center p-4">
+    <h2 class="display-5 animate__animated animate__fadeInDown">
+      Welcome to Admin Dashboard!
+      <!-- , {{ user?.name }} -->
+    </h2>
+    <!-- <p><strong>Email:</strong> {{ user?.email }}</p>
+    <p><strong>Role:</strong> {{ user?.role }}</p> -->
   </div>
-  
+</div>
+
+

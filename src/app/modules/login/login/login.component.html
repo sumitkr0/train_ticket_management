@@ -1,4 +1,3 @@
-<!-- login.component.html -->
 <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center"
   style="background: url('assets/images/background.jpg') no-repeat center center / cover;">
   <div class="row w-100 mx-3 mx-md-0">
@@ -12,21 +11,25 @@
           <p class="text-center text-muted mb-4">Don't have an account? <a routerLink="/register"
               class="text-decoration-none text-primary">Register</a>
           </p>
-          <form (ngSubmit)="onSubmit()">
+          <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
             <div class="form-floating mb-3">
-              <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control" required
-                placeholder="name@example.com" />
+              <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control"
+                #emailInput="ngModel" required email placeholder="name@example.com" />
               <label for="email">Email</label>
+              <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+                Please enter a valid email address.
+              </div>
             </div>
             <div class="form-floating mb-4">
-              <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control" required
-                placeholder="Password" />
+              <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control"
+                #passwordInput="ngModel" required minlength="8" placeholder="Password" />
               <label for="password">Password</label>
+              <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+                Password must be at least 8 characters long.
+              </div>
             </div>
-            <!-- <div class="d-flex justify-content-between align-items-center mb-4">
-              <a href="/forgot-password" class="text-decoration-none text-primary">Forgot Password?</a>
-            </div> -->
-            <button type="submit" class="btn btn-dark w-100 btn-lg">Login</button>
+            <button type="submit" class="btn btn-dark w-100 btn-lg" [disabled]="loginForm.invalid">Login</button>
+            
           </form>
         </div>
 
