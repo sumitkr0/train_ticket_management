@@ -11,6 +11,8 @@ import { RegisterComponent } from './register/register.component';
 import { BookingComponent } from './modules/booking/booking.component';
 import { UserBookingsComponent } from './modules/user-bookings/user-bookings.component';
 import { NavbarComponent } from './modules/navbar/navbar.component';
+import { FaqComponent } from './modules/faq/faq.component';
+import { UpdateUserComponent } from './modules/update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { NavbarComponent } from './modules/navbar/navbar.component';
     RegisterComponent,
     BookingComponent,
     UserBookingsComponent,
-    NavbarComponent   // Declare LoginComponent here
+    NavbarComponent,
+    FaqComponent,
+    UpdateUserComponent   // Declare LoginComponent here
   ],
   imports: [
     BrowserModule,

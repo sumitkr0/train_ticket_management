@@ -17,7 +17,6 @@ export class UserDashboardComponent implements OnInit {
   apiBaseUrl: string = 'http://localhost:8080/trains'; // Base URL for API
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
-    // Initialize form with Validators
     this.searchForm = this.fb.group({
       source: ['', Validators.required], // Source is required
       destination: ['', Validators.required], // Destination is required

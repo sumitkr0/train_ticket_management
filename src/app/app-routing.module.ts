@@ -6,6 +6,8 @@ import { AdminDashboardComponent } from './modules/admindashboard/admindashboard
 import { RegisterComponent } from './register/register.component';
 import { BookingComponent } from './modules/booking/booking.component';
 import { UserBookingsComponent } from './modules/user-bookings/user-bookings.component';
+import { FaqComponent } from './modules/faq/faq.component';
+import { UpdateUserComponent } from './modules/update-user/update-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },  
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'booking', component: BookingComponent },
   { path: 'user-bookings', component: UserBookingsComponent },
+  { path: 'faq', component: FaqComponent },
+  { path: 'update-user', component: UpdateUserComponent}
 ];
 
 @NgModule({

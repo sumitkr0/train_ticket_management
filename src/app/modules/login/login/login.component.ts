@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(response.userResponseDto));
 
           console.log(localStorage.getItem('token'));
+          console.log(localStorage.getItem('user'))
           // Redirect based on user role
           if (response.userResponseDto.role === 'ADMIN') {
             this.router.navigate(['/admindashboard']);

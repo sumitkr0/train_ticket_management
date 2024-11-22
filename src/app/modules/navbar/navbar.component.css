@@ -1,84 +1,67 @@
-/* Base styling for navbar */
+/* Navbar background and brand styles */
 .navbar {
-    background-color: #0056b3; /* Dark blue background */
-  }
-  
-  .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff;
-  }
-  
-  .navbar-nav .nav-item .nav-link {
-    font-size: 1.1rem;
-    padding: 0.75rem 1.25rem;
-    color: #fff; /* White text for links */
-  }
-  
-  /* Hover effect for navbar links */
-  .navbar-nav .nav-item .nav-link:hover {
-    background-color: #003d82; /* Darker blue on hover */
-    color: #fff; /* Keep white text on hover */
-  }
-  
-  /* Navbar Toggler for mobile view */
-  .navbar-toggler {
-    border-color: #fff; /* White border for toggler */
-  }
-  
-  .navbar-toggler-icon {
-    background-color: #fff; /* White hamburger icon */
-  }
-  
-  /* Styling for Logout Button */
-  .navbar-nav .nav-item button {
-    font-size: 1rem;
-    padding: 0.5rem 1.25rem;
-    border: none;
-    background-color: #d9534f; /* Bootstrap Red for logout */
-    color: #fff; /* White text for logout button */
+    background-color: #0d6efd; /* Default Bootstrap primary color */
     transition: background-color 0.3s ease;
   }
-  
-  .navbar-nav .nav-item button:hover {
-    background-color: #c9302c; /* Darker red on hover */
+  .navbar-brand {
+    font-size: 1.5rem;
+    color: #ffffff;
+    transition: color 0.3s ease;
+  }
+  .navbar-brand:hover {
+    color: #ffc107; /* Hover color for brand */
   }
   
-  /* Responsive Design: Navbar on small screens */
-  @media (max-width: 992px) {
-    .navbar-nav {
-      text-align: center;
-    }
-  
-    .navbar-nav .nav-item {
-      margin: 10px 0;
-    }
-  
-    .navbar-nav .nav-link,
-    .navbar-nav .nav-item button {
-      padding: 0.75rem 1.5rem;
-    }
+  /* Nav-item hover and active styles */
+  .nav-link {
+    color: #ffffff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  .nav-link:hover {
+    color: #ffc107; /* Yellow on hover */
+    text-decoration: underline; /* Optional: Adds underline on hover */
+  }
+  .nav-link.active {
+    color: #ffc107; /* Yellow text for active item */
+    font-weight: bold; /* Make active item bold */
   }
   
-  /* Additional Styling for Navbar */
-  .navbar .container-fluid {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .navbar-nav {
+  /* Dropdown menu styles */
+  .nav-item.dropdown .dropdown-toggle {
     display: flex;
     align-items: center;
+    padding: 0.5rem 0.75rem;
+  }
+  .nav-item.dropdown .dropdown-toggle img {
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  .nav-item.dropdown .dropdown-menu {
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  .nav-item.dropdown .dropdown-menu a {
+    padding: 0.75rem 1.5rem;
+    color: #333;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  .nav-item.dropdown .dropdown-menu a:hover {
+    background-color: #f8f9fa;
+    color: #0d6efd; /* Color on hover */
   }
   
-  .navbar-nav .nav-item {
-    margin-left: 15px;
+  /* Logout button style */
+  .btn-danger {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .btn-danger:hover {
+    background-color: #ff5722;
+    transform: scale(1.05);
   }
   
-  /* Optional: Style for active link */
-  .navbar-nav .nav-item .nav-link.active {
-    font-weight: bold;
-    color: #ffd700; /* Gold color for active link */
+  .dropdown-toggle::after{
+    color: white;
   }
-  
