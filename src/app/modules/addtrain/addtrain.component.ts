@@ -1,4 +1,7 @@
+declare var bootstrap: any;
+
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-addtrain',
@@ -6,87 +9,91 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./addtrain.component.css']
 })
 export class AddtrainComponent implements OnInit {
-  // Train data model
+  // Train model for adding new train
   train = {
+    id: 0,
     name: '',
     source: '',
     destination: '',
-    date: '',
+    status: true,
+    general: 0,
+    sleeper: 0,
+    ac: 0,
+    seatNumber: 0,
+    generalPrice: 100,
+    sleeperPrice: 150,
+    acPrice: 250,
     trainId: '',
-    category: 'General',  // Default category
-    seatPrice: '',  // Initially, it's a string
+    category: 'General',
   };
 
-  // Static train data (for displaying in the table)
-  trainData = [
-    {
-      trainId: '101',
-      name: 'Express Train',
-      source: 'New York',
-      destination: 'Los Angeles',
-      generalSeats: 150,
-      sleeperSeats: 100,
-      acSeats: 50,
-      seatPrice: 500,  // It's a number here
-    },
-    // You can add more train data here as needed
-  ];
+  // Data model for editing
+  trainToEdit: any = { ...this.train };
+
+  // Property to store the train data fetched from API
+  trainData: any[] = [];  // Initialize an empty array for train data
+
+  // API Base URL 
+  apiUrl = 'http://localhost:8080/trains';
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    // Initialize any other data if necessary
+    this.getTrains();
   }
 
-  // Calculate seat price based on category
-  getSeatPrice(): number {
-    const priceMap: { [key in 'General' | 'Sleeper' | 'AC']: number } = {
-      General: 100,
-      Sleeper: 150,
-      AC: 250,
-    };
-
-    // Ensure category is a valid key in priceMap
-    const category = this.train.category as 'General' | 'Sleeper' | 'AC';
-    return priceMap[category] || 0;  // Return a number, not a string
+  // Get train data from API
+  getTrains(): void {
+    this.http.get<any[]>(this.apiUrl).subscribe(
+      (response) => {
+        this.trainData = response;
+        console.log(response);
+      },
+      (error) => {
+        console.error('Error fetching trains:', error);
+      }
+    );
   }
 
-  // Handle form submission (adding the new train)
   addTrain() {
-    // Ensure seatPrice is a number when adding the train
-    const newTrain = {
-      ...this.train,
-      seatPrice: this.getSeatPrice() // Ensure it's a number here
-    };
+    const newTrain = { ...this.train };
 
-    // Add new train to train data table
-    this.trainData.push({
-      ...newTrain,
-      seatPrice: Number(newTrain.seatPrice),  // Explicitly convert to number if needed
-      generalSeats: 0, // Default or other values for the seats, update as necessary
-      sleeperSeats: 0,
-      acSeats: 0
-    });
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    // Clear the form after submission
-    this.clearForm();
+    this.http.post(this.apiUrl, newTrain, { headers }).subscribe(
+      (response) => {
+        console.log('Train added:', response);
+        this.getTrains();
+      },
+      (error) => {
+        console.error('Error adding train:', error);
+      }
+    );
   }
 
-  // Clear the form after adding a train
-  clearForm() {
-    this.train = {
-      name: '',
-      source: '',
-      destination: '',
-      date: '',
-      trainId: '',
-      category: 'General',
-      seatPrice: '',
-    };
+  updateTrain() {
+    const updatedTrain = { ...this.trainToEdit };
+
+    this.http.put(`${this.apiUrl}/${updatedTrain.id}`, updatedTrain).subscribe(
+      (response) => {
+        console.log('Train updated:', response);
+        this.closeModal();
+        this.getTrains();
+      },
+      (error) => {
+        console.error('Error updating train:', error);
+      }
+    );
   }
 
-   // Optional: method for logging out the user
-   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    window.location.href = '/login';  // Redirect to login page
+  editTrain(train: any) {
+    this.trainToEdit = { ...train };
+    const editModal = new bootstrap.Modal(document.getElementById('editTrainModal'));
+    editModal.show();
+  }
+
+  closeModal() {
+    const editModal = new bootstrap.Modal(document.getElementById('editTrainModal'));
+    editModal.hide();
   }
 }
