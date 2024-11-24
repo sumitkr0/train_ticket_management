@@ -16,6 +16,8 @@ import { UpdateUserComponent } from './modules/update-user/update-user.component
 import { UserdetailsComponent } from './modules/userdetails/userdetails.component';
 import { EdittrainComponent } from './modules/edittrain/edittrain.component';
 import { AddtrainComponent } from './modules/addtrain/addtrain.component';
+import { FoodComponent } from './modules/food/food.component';
+import { FoodBookingComponent } from './modules/food-booking/food-booking.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { AddtrainComponent } from './modules/addtrain/addtrain.component';
     AddtrainComponent,
     EdittrainComponent,
     UserdetailsComponent,
-    EdittrainComponent   // Declare LoginComponent here
+    EdittrainComponent,
+    FoodComponent,
+    FoodBookingComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,37 @@
+<div class="food-booking">
+    <h1>Food Booking</h1>
+
+    <!-- Select Booking -->
+    <h3>Select Booking</h3>
+    <select [(ngModel)]="selectedBookingId">
+        <option *ngFor="let booking of bookings" [value]="booking.id">
+            Booking ID: {{ booking.id }} - Train: {{ booking.train.name }} ({{ booking.coach }})
+        </option>
+    </select>
+
+    <!-- Select Foods -->
+    <h3>Select Foods</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Food Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let food of foods">
+                <td>{{ food.name }}</td>
+                <td>{{ food.price }}</td>
+                <td>
+                    <input type="number" min="0" [(ngModel)]="food.quantity"
+                    (ngModelChange)="updateQuantity(food.id, food.quantity)"
+                    placeholder="Enter quantity"
+                    />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button (click)="submitBooking()">Submit Booking</button>
+</div>

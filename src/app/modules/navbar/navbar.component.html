@@ -19,8 +19,13 @@
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/faq">FAQ</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/food">Food</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="trainDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Food</a>
+                        <ul class="dropdown-menu" aria-labelledby="trainDropdown">
+                            <li><a class="dropdown-item" routerLink="/food-booking">Book Food</a></li>
+                            <li><a class="dropdown-item" routerLink="/edittrain">Previous Bookings</a></li>
+                        </ul>
                     </li>
                 </ng-container>
 
@@ -37,6 +42,10 @@
                             <li><a class="dropdown-item" routerLink="/addtrain">Add Train</a></li>
                             <li><a class="dropdown-item" routerLink="/edittrain">Edit Train</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" routerLink="/food" id="userDropdown"
+                            aria-expanded="false">Food</a>
                     </li>
                     
                 </ng-container>

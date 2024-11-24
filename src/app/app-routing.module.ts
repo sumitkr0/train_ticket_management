@@ -14,6 +14,8 @@ import { EdittrainComponent } from './modules/edittrain/edittrain.component';
 import { AuthGuard } from './auth.guard';
 import { AuthGuard1 } from './auth1.guard';
 import { CommonguardGuard } from './commonguard.guard';
+import { FoodComponent } from './modules/food/food.component';
+import { FoodBookingComponent } from './modules/food-booking/food-booking.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },  
@@ -27,7 +29,9 @@ const routes: Routes = [
   { path: 'update-user', component: UpdateUserComponent,canActivate: [CommonguardGuard]},
   { path: 'addtrain', component: AddtrainComponent,canActivate: [AuthGuard1]},
   { path: 'edittrain', component: EdittrainComponent,canActivate: [AuthGuard1]},
-  { path: 'userdetails', component: UserdetailsComponent,canActivate: [AuthGuard1]}
+  { path: 'userdetails', component: UserdetailsComponent,canActivate: [AuthGuard1]},
+  { path: 'food', component: FoodComponent,canActivate: [AuthGuard1]},
+  { path: 'food-booking', component: FoodBookingComponent,canActivate: [AuthGuard]}
 ];
 
 @NgModule({
