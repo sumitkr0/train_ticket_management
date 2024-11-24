@@ -16,7 +16,7 @@
             <!-- Name Field -->
             <div class="form-floating mb-3">
               <input type="text" id="name" [(ngModel)]="name" name="name" class="form-control" required
-                pattern="^[a-zA-Z]+$" placeholder="Name" />
+                 placeholder="Name" />
               <label for="name">Name</label>
               <div *ngIf="registerForm.submitted && !registerForm.controls['name']?.valid" class="text-danger small">
                 Name should only contain alphabets.

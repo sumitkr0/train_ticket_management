@@ -11,10 +11,8 @@ export class CommonguardGuard implements CanActivate {
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     const token = localStorage.getItem('token');
     if (token) {
-      // If token exists, allow access
       return true;
     } else {
-      // If token doesn't exist, redirect to the login page
       this.router.navigate(['/login']);
       return false;
     }

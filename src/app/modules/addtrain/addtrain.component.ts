@@ -17,7 +17,7 @@ export class AddtrainComponent implements OnInit {
     general: 0,
     sleeper: 0,
     ac: 0,
-    seatNumber: 0,
+    seatNumber: 1,
     generalPrice: 100,
     sleeperPrice: 150,
     acPrice: 250,

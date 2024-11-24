@@ -34,10 +34,13 @@ export class EdittrainComponent implements OnInit {
 
   editTrain(train: any) {
     this.trainToEdit = { ...train };
-    const editModal = new bootstrap.Modal(document.getElementById('editTrainModal'));
+    const editModalElement = document.getElementById('editTrainModal');
+    console.log(editModalElement); // Check if the modal element exists
+    const editModal = new bootstrap.Modal(editModalElement);
+    console.log(editModal); // Check if the modal is initialized correctly
     editModal.show();
   }
-
+  
   updateTrain() {
     const updatedTrain = { ...this.trainToEdit };
 
@@ -45,12 +48,8 @@ export class EdittrainComponent implements OnInit {
       (response) => {
         console.log('Train updated:', response);
         this.closeModal();
-        this.getTrains();  // Re-fetch the trains after update
-
-        // Manually trigger change detection to update the UI
-        this.cdr.detectChanges();  // This will force the component to check for changes
-        
-        // Optionally, you can navigate back to the '/edittrain' route if needed
+        this.getTrains(); 
+        this.cdr.detectChanges(); 
         this.router.navigate(['/edittrain']);
       },
       (error) => {
@@ -60,7 +59,8 @@ export class EdittrainComponent implements OnInit {
   }
 
   closeModal() {
-    const editModal = new bootstrap.Modal(document.getElementById('editTrainModal'));
+    const editModalElement = document.getElementById('editTrainModal');
+    const editModal = bootstrap.Modal.getInstance(editModalElement) || new bootstrap.Modal(editModalElement);
     editModal.hide();
   }
 
