@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import Validators
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -13,12 +14,10 @@ export class UserDashboardComponent implements OnInit {
   hasSearched = false;
   searchForm: FormGroup;
   minDate: string = ''; 
-  selectedTrainId: number =0; 
   trains: Array<any> = []; // Dynamically fetched trains
   apiBaseUrl: string = 'http://localhost:8080/trains'; // Base URL for API
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
-    // Initialize form with Validators
+  constructor(private fb: FormBuilder, private http: HttpClient,private router:Router) {
     this.searchForm = this.fb.group({
       source: ['', Validators.required], // Source is required
       destination: ['', Validators.required], // Destination is required
@@ -27,6 +26,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    const token = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
     const storedToken = localStorage.getItem('token');
     if (storedUser && storedToken) {
@@ -44,8 +44,9 @@ export class UserDashboardComponent implements OnInit {
     }
 
     const { source, destination, date } = this.searchForm.value;
+    this.trains = [];
     this.hasSearched = true;
-   
+    localStorage.setItem('selectedDate',date);
 
     // API call to fetch trains based on source, destination, and date
     const url = `${this.apiBaseUrl}/searchtrain?source=${source}&destination=${destination}&date=${date}`;
@@ -60,10 +61,12 @@ export class UserDashboardComponent implements OnInit {
     });
   }
 
-  onBookTicket(trainId: number) {
+  onBookTicket(trainId: number, trainName: string) {
     console.log(`Booking ticket for Train ID: ${trainId}`);
-    this.selectedTrainId = trainId;
+    console.log(`Booking ticket for Train Name: ${trainName}`);
+
     localStorage.setItem('trainId',trainId.toString());
+    localStorage.setItem('trainName', trainName);
   }
 
   onProfileAction(action: string) {

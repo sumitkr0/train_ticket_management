@@ -1,0 +1,76 @@
+<div class="container">
+    <h2>Food Management</h2>
+  
+    <!-- Create Food Form -->
+    <div class="card p-3 my-3">
+      <h4>Create Food</h4>
+      <form (ngSubmit)="createFood()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" id="name" class="form-control" [(ngModel)]="newFood.name" name="name" required />
+        </div>
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" id="price" class="form-control" [(ngModel)]="newFood.price" name="price" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Add Food</button>
+      </form>
+    </div>
+  
+    <!-- Food List -->
+    <div class="card p-3">
+      <h4>Food List</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let food of foods">
+            <td>{{ food.id }}</td>
+            <td>{{ food.name }}</td>
+            <td>{{ food.price }}</td>
+            <td>
+              <button class="btn btn-secondary" (click)="loadFoodForEdit(food.id)">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Edit Food Form -->
+    <div class="card p-3 my-3" *ngIf="editFood">
+      <h4>Edit Food</h4>
+      <form (ngSubmit)="updateFood()">
+        <div class="mb-3">
+          <label for="editName" class="form-label">Name</label>
+          <input
+            type="text"
+            id="editName"
+            class="form-control"
+            [(ngModel)]="editFood.name"
+            name="editName"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="editPrice" class="form-label">Price</label>
+          <input
+            type="number"
+            id="editPrice"
+            class="form-control"
+            [(ngModel)]="editFood.price"
+            name="editPrice"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Update Food</button>
+        <button class="btn btn-secondary" (click)="editFood = null">Cancel</button>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,19 @@
+
+
+#accordionExample{
+    margin-top: 23px;
+}
+
+.navbar{
+ 
+    background-color:rgba(24, 80, 153, 0.3) ;
+}
+
+
+.this{
+    background-color:rgba(24, 80, 153, 0.3) ;
+    color:black;
+}
+.accordion-body{
+    font-size: 15px;
+}

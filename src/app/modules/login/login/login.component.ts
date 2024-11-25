@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router'; // To navigate after login
 
@@ -7,11 +7,15 @@ import { Router } from '@angular/router'; // To navigate after login
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
+
+  ngOnInit(): void {
+    localStorage.clear();
+  }
 
   onSubmit() {
     const loginData = {
@@ -31,6 +35,7 @@ export class LoginComponent {
           localStorage.setItem('user', JSON.stringify(response.userResponseDto));
 
           console.log(localStorage.getItem('token'));
+          console.log(localStorage.getItem('user'))
           // Redirect based on user role
           if (response.userResponseDto.role === 'ADMIN') {
             this.router.navigate(['/admindashboard']);

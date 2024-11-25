@@ -1,0 +1,80 @@
+/* Navbar background and brand styles */
+.navbar {
+    background-color: #0d6efd; /* Default Bootstrap primary color */
+    transition: background-color 0.3s ease;
+  }
+  .navbar-brand {
+    font-size: 1.5rem;
+    color: #ffffff;
+    transition: color 0.3s ease;
+  }
+  .navbar-brand:hover {
+    color: #ffc107; /* Hover color for brand */
+  }
+  
+  /* Nav-item hover and active styles */
+  .nav-link {
+    color: #ffffff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  .nav-link:hover {
+    color: #ffc107; /* Yellow on hover */
+    text-decoration: underline; /* Optional: Adds underline on hover */
+  }
+  .nav-link.active {
+    color: #ffc107; /* Yellow text for active item */
+    font-weight: bold; /* Make active item bold */
+  }
+  
+  /* Dropdown menu styles */
+  .nav-item.dropdown .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+  }
+  .nav-item.dropdown .dropdown-toggle img {
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  .nav-item.dropdown .dropdown-menu {
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  .nav-item.dropdown .dropdown-menu a {
+    padding: 0.75rem 1.5rem;
+    color: #333;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  .nav-item.dropdown .dropdown-menu a:hover {
+    background-color: #f8f9fa;
+    color: #0d6efd; /* Color on hover */
+  }
+  
+  /* Logout button style */
+  .btn-danger {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .btn-danger:hover {
+    background-color: #ff5722;
+    transform: scale(1.05);
+  }
+  
+  .dropdown-toggle::after{
+    color: white;
+  }
+  .circle-name {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #007bff;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+}

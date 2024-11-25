@@ -1,0 +1,138 @@
+<div class="container my-5">
+  <h4 class="text-center mb-4" style="color: #2a3d66; font-weight: bold;">Train Data</h4>
+  <table class="table table-striped table-bordered table-hover"
+    style="background-color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <thead style="background-color: #e6f0f9;">
+      <tr>
+        <th>Train ID</th>
+        <th>Name</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Status</th>
+        <th>General Coach</th>
+        <th>Sleeper Coach</th>
+        <th>AC Coach</th>
+        <!-- <th>Seat No</th> -->
+        <th>General Price</th>
+        <th>Sleeper Price</th>
+        <th>AC Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let train of trainData">
+        <td>{{ train.id }}</td>
+        <td>{{ train.name }}</td>
+        <td>{{ train.source }}</td>
+        <td>{{ train.destination }}</td>
+        <td>{{ train.status ? 'Active' : 'Inactive' }}</td>
+        <td>{{ train.general }}</td>
+        <td>{{ train.sleeper }}</td>
+        <td>{{ train.ac }}</td>
+        <!-- <td>{{ train.seatNumber }}</td> -->
+        <td>{{ train.generalPrice }}</td>
+        <td>{{ train.sleeperPrice }}</td>
+        <td>{{ train.acPrice }}</td>
+        <td>
+          <button class="btn btn-warning" (click)="editTrain(train)">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Edit Train Modal -->
+<div class="modal fade" id="editTrainModal" tabindex="-1" aria-labelledby="editTrainModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editTrainModalLabel">Edit Train</h5>
+        <button type="button" class="btn-close" aria-label="Close"
+          (click)="onModalClose()"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="updateTrain()" #editTrainForm="ngForm">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="editName" class="form-label">Train Name</label>
+              <input type="text" id="editName" class="form-control" [(ngModel)]="trainToEdit.name" name="name" required
+                style="background-color: #f8f9fa;" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <label for="editSource" class="form-label">Source</label>
+              <input type="text" id="editSource" class="form-control" [(ngModel)]="trainToEdit.source" name="source"
+                required style="background-color: #f8f9fa;" />
+            </div>
+            <div class="col-md-4">
+              <label for="editDestination" class="form-label">Destination</label>
+              <input type="text" id="editDestination" class="form-control" [(ngModel)]="trainToEdit.destination"
+                name="destination" required style="background-color: #f8f9fa;" />
+            </div>
+            <div class="col-md-4">
+              <label for="editStatus" class="form-label">Status</label>
+              <select id="editStatus" class="form-control" [(ngModel)]="trainToEdit.status" name="status" required
+                style="background-color: #f8f9fa;">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+
+            <div class="col-md-4">
+              <label for="editGeneralCoach" class="form-label">General Coach</label>
+              <input type="number" id="editGeneralCoach" class="form-control" [(ngModel)]="trainToEdit.general"
+                name="general" required style="background-color: #f8f9fa;" />
+            </div>
+            <div class="col-md-4">
+              <label for="editSleeperCoach" class="form-label">Sleeper Coach</label>
+              <input type="number" id="editSleeperCoach" class="form-control" [(ngModel)]="trainToEdit.sleeper"
+                name="sleeper" required style="background-color: #f8f9fa;" />
+            </div>
+            <div class="col-md-4">
+              <label for="editACoach" class="form-label">AC Coach</label>
+              <input type="number" id="editACoach" class="form-control" [(ngModel)]="trainToEdit.ac" name="ac" required
+                style="background-color: #f8f9fa;" />
+            </div>
+          </div>
+
+          <div class="row mt-3">
+
+            <!-- <div class="col-md-4">
+                <label for="editSeatNo" class="form-label">Seat No</label>
+                <input type="number" id="editSeatNo" class="form-control" [(ngModel)]="trainToEdit.seatNumber" name="seatNumber" required style="background-color: #f8f9fa;" />
+              </div> -->
+            <div class="col-md-4">
+              <label for="editGeneralPrice" class="form-label">General Price</label>
+              <input type="number" id="editGeneralPrice" class="form-control" [(ngModel)]="trainToEdit.generalPrice"
+                name="generalPrice" required style="background-color: #f8f9fa;" />
+            </div>
+            <div class="col-md-4">
+              <label for="editSleeperPrice" class="form-label">Sleeper Price</label>
+              <input type="number" id="editSleeperPrice" class="form-control" [(ngModel)]="trainToEdit.sleeperPrice"
+                name="sleeperPrice" required style="background-color: #f8f9fa;" />
+            </div>
+            <div class="col-md-4">
+              <label for="editACPrice" class="form-label">AC Price</label>
+              <input type="number" id="editACPrice" class="form-control" [(ngModel)]="trainToEdit.acPrice"
+                name="acPrice" required style="background-color: #f8f9fa;" />
+            </div>
+          </div>
+
+          <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-warning px-5 py-2"
+              style="border-radius: 30px; font-weight: bold;">Update Train</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">

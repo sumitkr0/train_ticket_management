@@ -9,7 +9,15 @@ import { UserDashboardComponent } from './modules/userdashboard/userdashboard.co
 import { AdminDashboardComponent } from './modules/admindashboard/admindashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { BookingComponent } from './modules/booking/booking.component';
+import { UserBookingsComponent } from './modules/user-bookings/user-bookings.component';
+import { NavbarComponent } from './modules/navbar/navbar.component';
+import { FaqComponent } from './modules/faq/faq.component';
+import { UpdateUserComponent } from './modules/update-user/update-user.component';
+import { UserdetailsComponent } from './modules/userdetails/userdetails.component';
+import { EdittrainComponent } from './modules/edittrain/edittrain.component';
 import { AddtrainComponent } from './modules/addtrain/addtrain.component';
+import { FoodComponent } from './modules/food/food.component';
+import { FoodBookingComponent } from './modules/food-booking/food-booking.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +27,16 @@ import { AddtrainComponent } from './modules/addtrain/addtrain.component';
     AdminDashboardComponent,
     RegisterComponent,
     BookingComponent,
+    UserBookingsComponent,
+    NavbarComponent,
+    FaqComponent,
+    UpdateUserComponent,
     AddtrainComponent,
+    EdittrainComponent,
+    UserdetailsComponent,
+    EdittrainComponent,
+    FoodComponent,
+    FoodBookingComponent,
   ],
   imports: [
     BrowserModule,

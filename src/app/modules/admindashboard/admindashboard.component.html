@@ -1,43 +1,13 @@
 <!-- admin-dashboard.component.html -->
 <div class="container-fluid bg-dark text-white min-vh-100">
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-    <div class="container">
-      <a class="navbar-brand" >Admin Dashboard</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <!-- <li class="nav-item">
-            <a class="nav-link text-white" href="/getallbookings">Get All Bookings</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="/getallusers">Get All Users</a>
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/addtrain">Add Train</a>
-          </li>
-          <li class="nav-item">
-            <button (click)="logout()" class="btn btn-danger ms-2">Logout</button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  
 
   <!-- Welcome Section -->
   <div class="text-center p-4">
     <h2 class="display-5 animate__animated animate__fadeInDown">
-      Welcome, {{ user?.name }} (Admin Dashboard)
+      Welcome to Admin Dashboard!
+      <!-- , {{ user?.name }} -->
     </h2>
     <!-- <p><strong>Email:</strong> {{ user?.email }}</p>
     <p><strong>Role:</strong> {{ user?.role }}</p> -->

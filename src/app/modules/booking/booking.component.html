@@ -1,70 +1,105 @@
-<div class="container mt-4">
-    <h3>Book Your Ticket</h3>
-    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
-  
-      <!-- Journey Date -->
-      <div class="mb-3">
-        <label for="journeyDate" class="form-label">Journey Date</label>
-        <input type="date" id="journeyDate" formControlName="journeyDate" class="form-control" [min]="minDate" />
-        <div *ngIf="bookingForm.get('journeyDate')?.invalid && bookingForm.get('journeyDate')?.touched" class="text-danger">
-          Journey Date is required.
-        </div>
-      </div>
-  
-      <!-- Coach Selection -->
-      <div class="mb-3">
-        <label for="coach" class="form-label">Coach</label>
-        <select id="coach" formControlName="coach" class="form-select">
-          <option value="GENERAL">General</option>
-          <option value="SLEEPER">Sleeper</option>
-          <option value="AC">AC</option>
-        </select>
-        <div *ngIf="bookingForm.get('coach')?.invalid && bookingForm.get('coach')?.touched" class="text-danger">
-          Coach is required.
-        </div>
-      </div>
-  
-      <!-- Passengers Form Array -->
-      <div formArrayName="passengers">
-        <div *ngFor="let passenger of passengersArray.controls; let i = index" [formGroupName]="i" class="mb-3">
-          <h4>Passenger {{ i + 1 }}</h4>
-  
-          <!-- Passenger Name -->
-          <label for="name">Name</label>
-          <input id="name" formControlName="name" type="text" class="form-control" placeholder="Enter name" />
-          <div *ngIf="passenger.get('name')?.invalid && passenger.get('name')?.touched" class="text-danger">
-            Name is required.
-          </div>
-  
-          <!-- Passenger Age -->
-          <label for="age">Age</label>
-          <input id="age" formControlName="age" type="number" class="form-control" placeholder="Enter age" />
-          <div *ngIf="passenger.get('age')?.invalid && passenger.get('age')?.touched" class="text-danger">
-            Age is required and must be a positive number.
-          </div>
-  
-          <!-- Passenger Gender -->
-          <label for="gender">Gender</label>
-          <select id="gender" formControlName="gender" class="form-select">
-            <option value="MALE">Male</option>
-            <option value="FEMALE">Female</option>
-          </select>
-          <div *ngIf="passenger.get('gender')?.invalid && passenger.get('gender')?.touched" class="text-danger">
-            Gender is required.
-          </div>
-  
-          <!-- Remove Passenger Button -->
-          <button type="button" class="btn btn-danger mt-2" (click)="removePassenger(i)">Remove Passenger</button>
-        </div>
-      </div>
-  
-      <!-- Add New Passenger -->
-      <button type="button" class="btn btn-success mt-3" (click)="addPassenger()">Add Passenger</button>
-  
-      <!-- Submit Button -->
-      <div class="mt-3">
-        <button type="submit" class="btn btn-primary" [disabled]="bookingForm.invalid">Book Ticket</button>
-      </div>
-    </form>
-  </div>
-  
+<div class="container mt-5">
+    <div class="card shadow-sm p-4">
+        <h2 class="text-center mb-4">🚆 Book Your Ticket</h2>
+        <h4 class="text-center text-primary my-4">
+            Please enter details to book ticket for '{{ trainName}}'
+        </h4>
+        <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+            <!-- Journey Date and Coach in One Row -->
+            <div class="row g-3 mb-4">
+                <!-- Journey Date -->
+                <div class="col-md-6">
+                    <label for="journeyDate" class="form-label fw-bold">Journey Date</label>
+                    <input type="date" id="journeyDate" formControlName="journeyDate"
+                        class="form-control border-primary" [min]="minDate" />
+                    <div *ngIf="bookingForm.get('journeyDate')?.invalid && bookingForm.get('journeyDate')?.touched"
+                        class="text-danger mt-2">
+                        Please select a valid journey date.
+                    </div>
+                </div>
+
+                <!-- Coach Selection -->
+                <div class="col-md-6">
+                    <label for="coach" class="form-label fw-bold">Coach</label>
+                    <select id="coach" formControlName="coach" class="form-select border-primary">
+                        <option value="" disabled selected>Select Coach</option>
+                        <option value="GENERAL">General</option>
+                        <option value="SLEEPER">Sleeper</option>
+                        <option value="AC">AC</option>
+                    </select>
+                    <div *ngIf="bookingForm.get('coach')?.invalid && bookingForm.get('coach')?.touched"
+                        class="text-danger mt-2">
+                        Please select a coach.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Passengers Section -->
+            <div formArrayName="passengers">
+                <div *ngFor="let passenger of passengersArray.controls; let i = index" [formGroupName]="i"
+                    class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Passenger {{ i + 1 }}</h5>
+                        <div class="row g-3">
+                            <!-- Passenger Name -->
+                            <div class="col-md-4">
+                                <label for="name" class="form-label">Name</label>
+                                <input id="name" formControlName="name" type="text" class="form-control border-primary"
+                                    placeholder="Enter name" />
+                                <div *ngIf="passenger.get('name')?.invalid && passenger.get('name')?.touched"
+                                    class="text-danger mt-2">
+                                    Name is required.
+                                </div>
+                            </div>
+
+                            <!-- Passenger Age -->
+                            <div class="col-md-4">
+                                <label for="age" class="form-label">Age</label>
+                                <input id="age" formControlName="age" type="number" class="form-control border-primary"
+                                    placeholder="Enter age" />
+                                <div *ngIf="passenger.get('age')?.invalid && passenger.get('age')?.touched"
+                                    class="text-danger mt-2">
+                                    Age must be a positive number.
+                                </div>
+                            </div>
+
+                            <!-- Passenger Gender -->
+                            <div class="col-md-4">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select id="gender" formControlName="gender" class="form-select border-primary">
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
+                                </select>
+                                <div *ngIf="passenger.get('gender')?.invalid && passenger.get('gender')?.touched"
+                                    class="text-danger mt-2">
+                                    Gender is required.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Remove Passenger Button -->
+                        <div class="text-end mt-3">
+                            <button type="button" class="btn btn-danger btn-sm" (click)="removePassenger(i)">
+                                Remove Passenger
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add New Passenger Button -->
+            <div class="d-grid gap-2 mt-4">
+                <button type="button" class="btn btn-outline-success" (click)="addPassenger()">
+                    + Add Passenger
+                </button>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-primary btn-lg" [disabled]="bookingForm.invalid">
+                    Book Ticket
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

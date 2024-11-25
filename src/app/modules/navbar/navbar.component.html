@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/userdashboard" *ngIf="user?.role === 'USER'">Train Booking System</a>
+        <a class="navbar-brand" routerLink="/admindashboard" *ngIf="user?.role === 'ADMIN'">Train Booking System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <!-- USER NAVBAR -->
+                <ng-container *ngIf="user?.role === 'USER'">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" routerLink="/userdashboard">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/user-bookings">Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/faq">FAQ</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="trainDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Food</a>
+                        <ul class="dropdown-menu" aria-labelledby="trainDropdown">
+                            <li><a class="dropdown-item" routerLink="/food-booking">Book Food</a></li>
+                            <li><a class="dropdown-item" routerLink="/edittrain">Previous Bookings</a></li>
+                        </ul>
+                    </li>
+                </ng-container>
+
+                <!-- ADMIN NAVBAR -->
+                <ng-container *ngIf="user?.role === 'ADMIN'">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" routerLink="/userdetails" id="userDropdown"
+                            aria-expanded="false">Users</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="trainDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Trains</a>
+                        <ul class="dropdown-menu" aria-labelledby="trainDropdown">
+                            <li><a class="dropdown-item" routerLink="/addtrain">Add Train</a></li>
+                            <li><a class="dropdown-item" routerLink="/edittrain">Edit Train</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" routerLink="/food" id="userDropdown"
+                            aria-expanded="false">Food</a>
+                    </li>
+                    
+                </ng-container>
+            </ul>
+            <div class="dropdown">
+                <button class="btn profile-btn dropdown-toggle d-flex align-items-center" type="button" id="profileMenu"
+                    data-bs-toggle="dropdown" aria-expanded="false" title="Email: {{user?.email}}"
+                    style="border: none;">
+                    <div class="circle-name">
+                        {{ user?.name?.charAt(0) | uppercase }}
+                    </div>
+                    <!-- <span style="color: white; padding-left: 10px;"><b>{{ user?.name }}</b></span> -->
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileMenu">
+                    <span style="color: rgb(14, 13, 13); padding-left: 10px; "><b><i>{{ user?.name }}</i></b></span>
+                    <li><a class="dropdown-item logout-btn" routerLink="/update-user">Update Profile</a></li>
+                    <li><a class="dropdown-item logout-btn" (click)="logout()" routerLink="/login">Logout</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>

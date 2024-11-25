@@ -1,214 +1,86 @@
-<div class="container-fluid" style="background-color: #f4f9fd; min-height: 100vh;">
-  <!-- Enhanced Navbar Design -->
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f8f9fa; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    <div class="container">
-      <a class="navbar-brand" style="color: #2a3d66; font-weight: 600; font-size: 1.7rem;">Admin Dashboard</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a href="/admindashboard" class="nav-link" style="font-size: 1.5rem; color: #2a3d66;">
-              <i class="fas fa-home"></i> <!-- Home Icon from FontAwesome -->
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<div class="container-fluid" style="min-height: 100vh;">
 
-  <div class="container my-5" style="background-color: white; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 40px;">
-    <h2 class="text-center mb-4" style="color: #2a3d66; font-weight: bold;">Add Train</h2>
-
-    <!-- Add Train Form -->
-    <form (ngSubmit)="addTrain()" #trainForm="ngForm" class="mb-5">
-      <input type="hidden" name="id" value="add" [(ngModel)]="train.id">
-
-      <div class="row">
-        <div class="col-md-4">
-          <label for="name" class="form-label">Train Name</label>
-          <input type="text" id="name" class="form-control" [(ngModel)]="train.name" name="name" required style="background-color: #f8f9fa;" />
-        </div>
-        <div class="col-md-4">
-          <label for="source" class="form-label">Source</label>
-          <input type="text" id="source" class="form-control" [(ngModel)]="train.source" name="source" required style="background-color: #f8f9fa;" />
-        </div>
-        <div class="col-md-4">
-          <label for="destination" class="form-label">Destination</label>
-          <input type="text" id="destination" class="form-control" [(ngModel)]="train.destination" name="destination" required style="background-color: #f8f9fa;" />
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col-md-4">
-          <label for="status" class="form-label">Status</label>
-          <select id="status" class="form-control" [(ngModel)]="train.status" name="status" required style="background-color: #f8f9fa;">
-            <option value="true">Active</option>
-            <option value="false">Inactive</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label for="generalCoach" class="form-label">General Coach</label>
-          <input type="number" id="generalCoach" class="form-control" [(ngModel)]="train.general" name="general" required style="background-color: #f8f9fa;" />
-        </div>
-        <div class="col-md-4">
-          <label for="sleeperCoach" class="form-label">Sleeper Coach</label>
-          <input type="number" id="sleeperCoach" class="form-control" [(ngModel)]="train.sleeper" name="sleeper" required style="background-color: #f8f9fa;" />
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col-md-4">
-          <label for="acCoach" class="form-label">AC Coach</label>
-          <input type="number" id="acCoach" class="form-control" [(ngModel)]="train.ac" name="ac" required style="background-color: #f8f9fa;" />
-        </div>
-        <div class="col-md-4">
-          <label for="seatNo" class="form-label">Seat No</label>
-          <input type="number" id="seatNo" class="form-control" [(ngModel)]="train.seatNumber" name="seatNumber" required style="background-color: #f8f9fa;" />
-        </div>
-        <div class="col-md-4">
-          <label for="generalPrice" class="form-label">General Price</label>
-          <input type="number" id="generalPrice" class="form-control" [(ngModel)]="train.generalPrice" name="generalPrice" required style="background-color: #f8f9fa;" />
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col-md-4">
-          <label for="sleeperPrice" class="form-label">Sleeper Price</label>
-          <input type="number" id="sleeperPrice" class="form-control" [(ngModel)]="train.sleeperPrice" name="sleeperPrice" required style="background-color: #f8f9fa;" />
-        </div>
-        <div class="col-md-4">
-          <label for="acPrice" class="form-label">AC Price</label>
-          <input type="number" id="acPrice" class="form-control" [(ngModel)]="train.acPrice" name="acPrice" required style="background-color: #f8f9fa;" />
-        </div>
-      </div>
-
-      <div class="mt-4 text-center">
-        <button type="submit" class="btn btn-primary px-5 py-2" style="border-radius: 30px; font-weight: bold;">Add Train</button>
-      </div>
-    </form>
-
-    <!-- Train Data Table -->
-    <h4 class="text-center mb-4" style="color: #2a3d66; font-weight: bold;">Train Data</h4>
-    <table class="table table-striped table-bordered table-hover" style="background-color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-      <thead style="background-color: #e6f0f9;">
-        <tr>
-          <th>Train ID</th>
-          <th>Name</th>
-          <th>Source</th>
-          <th>Destination</th>
-          <th>Status</th>
-          <th>General Coach</th>
-          <th>Sleeper Coach</th>
-          <th>AC Coach</th>
-          <th>Seat No</th>
-          <th>General Price</th>
-          <th>Sleeper Price</th>
-          <th>AC Price</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let train of trainData">
-          <td>{{ train.id }}</td>
-          <td>{{ train.name }}</td>
-          <td>{{ train.source }}</td>
-          <td>{{ train.destination }}</td>
-          <td>{{ train.status ? 'Active' : 'Inactive' }}</td>
-          <td>{{ train.general }}</td>
-          <td>{{ train.sleeper }}</td>
-          <td>{{ train.ac }}</td>
-          <td>{{ train.seatNo }}</td>
-          <td>{{ train.generalPrice }}</td>
-          <td>{{ train.sleeperPrice }}</td>
-          <td>{{ train.acPrice }}</td>
-          <td>
-            <button class="btn btn-warning" (click)="editTrain(train)">Edit</button>
-            <!-- <button class="btn btn-danger" (click)="deleteTrain(train.id)">Delete</button> -->
-          </td>
-        </tr>
-      </tbody>
-    </table>
     
-  </div>
-</div>
+    <div class="container my-5"
+        style="background-color: white; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 40px;">
+        <h2 class="text-center mb-4" style="color: #2a3d66; font-weight: bold;">Add Train</h2>
 
-<!-- Edit Train Modal -->
-<div class="modal fade" id="editTrainModal" tabindex="-1" aria-labelledby="editTrainModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editTrainModalLabel">Edit Train</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Same fields as the Add form, but for editing -->
-        <form (ngSubmit)="updateTrain()" #editTrainForm="ngForm">
-          <div class="row">
-            <div class="col-md-4">
-              <label for="editName" class="form-label">Train Name</label>
-              <input type="text" id="editName" class="form-control" [(ngModel)]="trainToEdit.name" name="name" required style="background-color: #f8f9fa;" />
-            </div>
-            <div class="col-md-4">
-              <label for="editSource" class="form-label">Source</label>
-              <input type="text" id="editSource" class="form-control" [(ngModel)]="trainToEdit.source" name="source" required style="background-color: #f8f9fa;" />
-            </div>
-            <div class="col-md-4">
-              <label for="editDestination" class="form-label">Destination</label>
-              <input type="text" id="editDestination" class="form-control" [(ngModel)]="trainToEdit.destination" name="destination" required style="background-color: #f8f9fa;" />
-            </div>
-          </div>
+        <form (ngSubmit)="addTrain()" #trainForm="ngForm" class="mb-5">
+            <input type="hidden" name="id" value="add" [(ngModel)]="train.id">
 
-          <div class="row mt-3">
-            <div class="col-md-4">
-              <label for="editStatus" class="form-label">Status</label>
-              <select id="editStatus" class="form-control" [(ngModel)]="trainToEdit.status" name="status" required style="background-color: #f8f9fa;">
-                <option value="true">Active</option>
-                <option value="false">Inactive</option>
-              </select>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="name" class="form-label">Train Name</label>
+                    <input type="text" id="name" class="form-control" [(ngModel)]="train.name" name="name" required
+                        style="background-color: #f8f9fa;" />
+                </div>
             </div>
-            <div class="col-md-4">
-              <label for="editGeneralCoach" class="form-label">General Coach</label>
-              <input type="number" id="editGeneralCoach" class="form-control" [(ngModel)]="trainToEdit.general" name="general" required style="background-color: #f8f9fa;" />
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="source" class="form-label">Source</label>
+                    <input type="text" id="source" class="form-control" [(ngModel)]="train.source" name="source"
+                        required style="background-color: #f8f9fa;" />
+                </div>
+                <div class="col-md-4">
+                    <label for="destination" class="form-label">Destination</label>
+                    <input type="text" id="destination" class="form-control" [(ngModel)]="train.destination"
+                        name="destination" required style="background-color: #f8f9fa;" />
+                </div>
+                <div class="col-md-4">
+                    <label for="status" class="form-label">Status</label>
+                    <select id="status" class="form-control" [(ngModel)]="train.status" name="status" required
+                        style="background-color: #f8f9fa;">
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </div>
             </div>
-            <div class="col-md-4">
-              <label for="editSleeperCoach" class="form-label">Sleeper Coach</label>
-              <input type="number" id="editSleeperCoach" class="form-control" [(ngModel)]="trainToEdit.sleeper" name="sleeper" required style="background-color: #f8f9fa;" />
-            </div>
-          </div>
 
-          <div class="row mt-3">
-            <div class="col-md-4">
-              <label for="editACoach" class="form-label">AC Coach</label>
-              <input type="number" id="editACoach" class="form-control" [(ngModel)]="trainToEdit.ac" name="ac" required style="background-color: #f8f9fa;" />
+            <div class="row mt-3">
+                
+                <div class="col-md-4">
+                    <label for="generalCoach" class="form-label">General Coach</label>
+                    <input type="number" id="generalCoach" class="form-control" [(ngModel)]="train.general"
+                        name="general" required style="background-color: #f8f9fa;" />
+                </div>
+                <div class="col-md-4">
+                    <label for="sleeperCoach" class="form-label">Sleeper Coach</label>
+                    <input type="number" id="sleeperCoach" class="form-control" [(ngModel)]="train.sleeper"
+                        name="sleeper" required style="background-color: #f8f9fa;" />
+                </div>
+                <div class="col-md-4">
+                    <label for="acCoach" class="form-label">AC Coach</label>
+                    <input type="number" id="acCoach" class="form-control" [(ngModel)]="train.ac" name="ac" required
+                        style="background-color: #f8f9fa;" />
+                </div>
             </div>
-            <div class="col-md-4">
-              <label for="editSeatNo" class="form-label">Seat No</label>
-              <input type="number" id="editSeatNo" class="form-control" [(ngModel)]="trainToEdit.seatNumber" name="seatNumber" required style="background-color: #f8f9fa;" />
-            </div>
-            <div class="col-md-4">
-              <label for="editGeneralPrice" class="form-label">General Price</label>
-              <input type="number" id="editGeneralPrice" class="form-control" [(ngModel)]="trainToEdit.generalPrice" name="generalPrice" required style="background-color: #f8f9fa;" />
-            </div>
-          </div>
 
-          <div class="row mt-3">
-            <div class="col-md-4">
-              <label for="editSleeperPrice" class="form-label">Sleeper Price</label>
-              <input type="number" id="editSleeperPrice" class="form-control" [(ngModel)]="trainToEdit.sleeperPrice" name="sleeperPrice" required style="background-color: #f8f9fa;" />
+            <div class="row mt-3">
+                
+                <!-- <div class="col-md-4">
+                    <label for="seatNo" class="form-label">Seat No</label>
+                    <input type="number" id="seatNo" class="form-control" [(ngModel)]="train.seatNumber"
+                        name="seatNumber" required style="background-color: #f8f9fa;" />
+                </div> -->
+                <div class="col-md-4">
+                    <label for="generalPrice" class="form-label">General Price</label>
+                    <input type="number" id="generalPrice" class="form-control" [(ngModel)]="train.generalPrice"
+                        name="generalPrice" required style="background-color: #f8f9fa;" />
+                </div>
+                <div class="col-md-4">
+                    <label for="sleeperPrice" class="form-label">Sleeper Price</label>
+                    <input type="number" id="sleeperPrice" class="form-control" [(ngModel)]="train.sleeperPrice"
+                        name="sleeperPrice" required style="background-color: #f8f9fa;" />
+                </div>
+                <div class="col-md-4">
+                    <label for="acPrice" class="form-label">AC Price</label>
+                    <input type="number" id="acPrice" class="form-control" [(ngModel)]="train.acPrice" name="acPrice"
+                        required style="background-color: #f8f9fa;" />
+                </div>
             </div>
-            <div class="col-md-4">
-              <label for="editACPrice" class="form-label">AC Price</label>
-              <input type="number" id="editACPrice" class="form-control" [(ngModel)]="trainToEdit.acPrice" name="acPrice" required style="background-color: #f8f9fa;" />
-            </div>
-          </div>
 
-          <div class="mt-4 text-center">
-            <button type="submit" class="btn btn-warning px-5 py-2" style="border-radius: 30px; font-weight: bold;">Update Train</button>
-          </div>
+            <div class="mt-4 text-center">
+                <button type="submit" class="btn btn-primary px-5 py-2"
+                    style="border-radius: 30px; font-weight: bold;">Add Train</button>
+            </div>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
