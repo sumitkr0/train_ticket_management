@@ -18,6 +18,7 @@ import { EdittrainComponent } from './modules/edittrain/edittrain.component';
 import { AddtrainComponent } from './modules/addtrain/addtrain.component';
 import { FoodComponent } from './modules/food/food.component';
 import { FoodBookingComponent } from './modules/food-booking/food-booking.component';
+import { FoodBookingHistoryComponent } from './modules/food-booking-history/food-booking-history.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { FoodBookingComponent } from './modules/food-booking/food-booking.compon
     EdittrainComponent,
     FoodComponent,
     FoodBookingComponent,
+    FoodBookingHistoryComponent,
   ],
   imports: [
     BrowserModule,

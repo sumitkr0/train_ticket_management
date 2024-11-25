@@ -16,6 +16,7 @@ import { AuthGuard1 } from './auth1.guard';
 import { CommonguardGuard } from './commonguard.guard';
 import { FoodComponent } from './modules/food/food.component';
 import { FoodBookingComponent } from './modules/food-booking/food-booking.component';
+import { FoodBookingHistoryComponent } from './modules/food-booking-history/food-booking-history.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },  
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'edittrain', component: EdittrainComponent,canActivate: [AuthGuard1]},
   { path: 'userdetails', component: UserdetailsComponent,canActivate: [AuthGuard1]},
   { path: 'food', component: FoodComponent,canActivate: [AuthGuard1]},
-  { path: 'food-booking', component: FoodBookingComponent,canActivate: [AuthGuard]}
+  { path: 'food-booking', component: FoodBookingComponent,canActivate: [AuthGuard]},
+  { path: 'food-booking-history', component: FoodBookingHistoryComponent,canActivate: [AuthGuard]}
 ];
 
 @NgModule({

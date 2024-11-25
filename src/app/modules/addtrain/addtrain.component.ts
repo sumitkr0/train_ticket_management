@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-addtrain',
@@ -28,24 +29,29 @@ export class AddtrainComponent implements OnInit {
 
   apiUrl = 'http://localhost:8080/trains';
 
-  constructor(private http: HttpClient,private router:Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {}
 
-  addTrain() {
-    const newTrain = { ...this.train };
+  // Add train method with validation
+  addTrain(trainForm: NgForm) {
+    if (trainForm.valid) {
+      const newTrain = { ...this.train };
 
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+      const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    this.http.post(this.apiUrl, newTrain, { headers }).subscribe(
-      (response) => {
-        console.log('Train added:', response);
-        this.router.navigate(['/edittrain']);
-      },
-      (error) => {
-        console.error('Error adding train:', error);
-      }
-    );
+      this.http.post(this.apiUrl, newTrain, { headers }).subscribe(
+        (response) => {
+          console.log('Train added:', response);
+          this.router.navigate(['/edittrain']);
+        },
+        (error) => {
+          console.error('Error adding train:', error);
+        }
+      );
+    } else {
+      console.log('Form is invalid. Please fill all fields correctly.');
+    }
   }
 
   resetForm() {
